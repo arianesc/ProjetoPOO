@@ -2,10 +2,10 @@ import json
 
 class Arquivo:
 
-	def criar(nome, dado):
-		arquivo = open(f'{nome}', 'w')
-		arquivo.write(dado)
-		arquivo.close()
+	# def criar(nome, dado):
+	# 	arquivo = open(f'{nome}', 'w')
+	# 	arquivo.write(dado)
+	# 	arquivo.close()
 	
 	
 	def adicionar_dados(nome, dado):

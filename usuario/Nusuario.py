@@ -21,6 +21,7 @@ class NUsuario:
 		return True
 
 	
+	
 	@classmethod
 	def listar_usuarios(cls):
 		return cls.usuarios

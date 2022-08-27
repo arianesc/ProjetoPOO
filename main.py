@@ -1,5 +1,6 @@
 # from usuario.usuario import Usuario
 from usuario.Nusuario import NUsuario
+from categoria.Ncategoria import NCategoria
 
 class Program:
 	usuario_autenticado = None
@@ -31,11 +32,9 @@ class Program:
 		print("Opção: ", end="")
 		return int(input())
 
-	
-	
 	def atualizar_dados():
 		NUsuario.recarregar_usuarios_do_banco()
-		
+		NCategoria.recarregar_categorias_do_banco()		
 	
 	""" USUARIO"""
 	
@@ -54,9 +53,6 @@ class Program:
 		Program.usuario_autenticado = aut
 		
 		return Program.main_usuario()
-	
-	
-	
 	
 	def cadastrar_usuario():
 		print("-- INSIRA SEUS DADOS PARA CADASTRO --")
@@ -87,7 +83,7 @@ class Program:
 		Program.usuario_autenticado = None
 		return Program.main()
 		
-	
+
 	
 	def main_usuario():
 		op = 0
@@ -96,44 +92,43 @@ class Program:
 				op = Program.menu_usuario()
 				if op == 1: Program.excluir_usuario()
 				if op == 2: Program.logout()
-
+				if op == 3: Program.categoria_inserir()
+				if op == 4: Program.categoria_excluir()
+				if op == 5: Program.categoria_listar()
+				
 			except Exception as erro:
 						print(erro)
 		pass
-
-	# def main_visitante():
-	# 	pass
-		
-	# """MENUS"""
-	# def menu():
-	# 	pass
-
-	
 	
 	def menu_usuario():
 		print("----- MENU DO USUARIO -----")
 		print("  01 - excluir conta")
 		print("  02 - logout")
+		print("  03 - Adicionar categoria")
+		print("  04 - Remover categoria ")
+		print("  05 - Listar categorias")
+
 
 		print("Opção: ", end="")
 		return int(input())
 
-	# def menu_visitante():
-	# 	pass
-
 	
 	# """CATEGORIA"""
-	# def categoria_inserir():
-	# 	pass
+	def categoria_inserir():
+		nome = input("nome: ")
+		NCategoria.inserir(nome)
 
-	# def categoria_atualizar():
-	# 	pass
+	def categoria_listar():
+		print("-- LISTA DE CATEGORIAS --")
+		lista = NCategoria.listar()
+		for c in lista:
+			print(f"{c.id} - {c.nome}")
+		
 
-	# def categoria_listar():
-	# 	pass
-
-	# def categoria_excluir():
-	# 	pass
+	def categoria_excluir():
+		Program.categoria_listar()
+		c = input("insira o id da cateoria que quer excluir: ")
+		NCategoria.excluir(c)
 
 	
 	# """PUBLICACAO"""
