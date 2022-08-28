@@ -1,22 +1,15 @@
 import json 
 
 class Arquivo:
-
-	# def criar(nome, dado):
-	# 	arquivo = open(f'{nome}', 'w')
-	# 	arquivo.write(dado)
-	# 	arquivo.close()
-	
-	
 	def adicionar_dados(nome, dado):
 		with open(nome) as fp:
 			listObj = json.load(fp)
 		listObj.append(dado)
 		with open(nome, 'w') as json_file:
-		    json.dump(listObj, json_file, 
-		                        indent=4,  
-		                        separators=(',',': '))
-
+		    json.dump(listObj, 
+									json_file, 
+		              indent=4,  
+		              separators=(',',': '))
 	
 	def ler(nome):
 		with open(nome) as f:

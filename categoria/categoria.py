@@ -5,9 +5,3 @@ class Categoria:
 
 	def __str__(self):
 		return f"{self.id} - {self.nome}"
-
-
-	
-	@staticmethod
-	def order_id(categoria):
-		return categoria.id

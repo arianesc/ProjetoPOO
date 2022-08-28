@@ -1,13 +1,13 @@
 # from usuario.usuario import Usuario
 from usuario.Nusuario import NUsuario
 from categoria.Ncategoria import NCategoria
+from publicacao.Npublicacao import NPublicacao
 
 class Program:
 	usuario_autenticado = None
 	
 	def main():
 		Program.atualizar_dados()
-		
 		if Program.usuario_autenticado is None:
 			print("--- Bem-vindx! ---")
 			print()
@@ -23,8 +23,6 @@ class Program:
 			Program.main_usuario()
 	
 	
-	
-	
 	def menu():
 		print("----- MENU -----")
 		print("  01 - Login")
@@ -32,9 +30,11 @@ class Program:
 		print("Opção: ", end="")
 		return int(input())
 
+	
 	def atualizar_dados():
 		NUsuario.recarregar_usuarios_do_banco()
 		NCategoria.recarregar_categorias_do_banco()		
+		NPublicacao.recarregar_publicacoes_do_banco()
 	
 	""" USUARIO"""
 	
@@ -95,7 +95,9 @@ class Program:
 				if op == 3: Program.categoria_inserir()
 				if op == 4: Program.categoria_excluir()
 				if op == 5: Program.categoria_listar()
-				
+				if op == 6: Program.publicacao_inserir()
+				if op == 7: Program.publicacao_listar()
+
 			except Exception as erro:
 						print(erro)
 		pass
@@ -107,8 +109,8 @@ class Program:
 		print("  03 - Adicionar categoria")
 		print("  04 - Remover categoria ")
 		print("  05 - Listar categorias")
-
-
+		print("  06 - Adicionar publicacao")
+		print("  07 - Listar publicacões")
 		print("Opção: ", end="")
 		return int(input())
 
@@ -127,19 +129,27 @@ class Program:
 
 	def categoria_excluir():
 		Program.categoria_listar()
-		c = input("insira o id da cateoria que quer excluir: ")
-		NCategoria.excluir(c)
+		c_id = int(input("insira o id da cateoria que quer excluir: "))
+		obj = NCategoria.pesquisar(c_id)
+		NCategoria.excluir(obj)
 
 	
 	# """PUBLICACAO"""
-	# def publicacao_inserir():
-	# 	pass
+	def publicacao_inserir():
+		titulo = input("titulo: ")
+		texto = input("texto: ")
+		categoria = int(input("categoria: "))
+		NPublicacao.inserir(titulo, texto, categoria)
 	
 	# def publicacao_atualizar():
 	# 	pass
 	
-	# def publicacao_listar():
-	# 	pass
+	def publicacao_listar():
+		""" Listar titulo das e exibir menu pra selecionar qual quer ler"""
+		lista = NPublicacao.listar()
+		for p in lista:
+			print(f"{p.id} - {p.titulo}")
+
 	
 	# def publicacao_excluir():
 	# 	pass

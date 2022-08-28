@@ -1,5 +1,6 @@
 from categoria.categoria import Categoria
 from arquivo import Arquivo
+from crud import Crud
 
 class NCategoria:
 	id = 0
@@ -8,46 +9,32 @@ class NCategoria:
 	@classmethod
 	def inserir(cls, nome):
 		cls.id += 1
-		# criar categoria
-		c = Categoria(cls.id, nome)
-		cls.categorias.append(c)
-		# cadastrar no arquivo
-		dados = {"id":c.id,
-						 "nome":c.nome}
-		Arquivo.adicionar_dados("categorias.txt", dados)
+		obj = Categoria(cls.id, nome)  # cria objeto
+		dados = {"id": 1, "nome": nome} # cria dict para o banco
+		Crud.criar(obj, cls.categorias, dados,  "categorias.txt")  # adiciona objeto na lista e no banco
 		return True
 
-	
-	@classmethod
-	def recarregar_categorias_do_banco(cls):
-		id = 0
-		categorias_json = Arquivo.ler("categorias.txt")
-		for categoria in categorias_json:
-			categoria_existe = cls.pesquisar(categoria["id"])
-			if categoria_existe is None:
-				nova_categoria = Categoria(categoria["id"], categoria["nome"])
-				cls.categorias.append(nova_categoria)
-			if categoria["id"] > id:
-				id = categoria["id"]
-				
-		cls.id = id
-
-	
 	@classmethod
 	def listar(cls):
-		return cls.categorias
+		return cls.categorias 
 		
-	
 	@classmethod
-	def pesquisar(cls,c_id):
-		for obj in cls.categorias:
-			 if obj.id == c_id:
-				 return obj
-		return
+	def pesquisar(cls, c_id):
+		return Crud.pesquisar(c_id, cls.categorias) 
+
+	@classmethod
+	def excluir(cls, obj):
+		Crud.deletar(obj, cls.categorias, "categorias.txt")
 		
-	
 	@classmethod
-	def excluir(cls,c_id):
-		atual = cls.pesquisar(c_id)
-		cls.categorias.remove(atual)
-		Arquivo.deletar_dado("categorias.txt", atual)
+	def recarregar_categorias_do_banco(cls):
+		id = 0 # zera variavel id
+		categorias_json = Arquivo.ler("categorias.txt") # lê arquivo categorias
+		for categoria in categorias_json:
+			categoria_existe = cls.pesquisar(categoria["id"]) # pega o id do banco e verifica se já existe um objeto com esse id
+			if categoria_existe is None: # Se não existir, cria novo objeto com os dados
+				nova_categoria = Categoria(categoria["id"], categoria["nome"])
+				cls.categorias.append(nova_categoria)
+			if categoria["id"] > id:  # logica para pegar o proximo id
+				id = categoria["id"]
+		cls.id = id

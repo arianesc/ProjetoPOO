@@ -1,9 +1,17 @@
-class NCurtida:
-	def __init__(self, curtida):
-		self._curtida = curtida
+from curtida.curtida import Curtida
 
-	def curtir(self, c):
-		pass
-		
+class NCurtida:
+	curtidas = []
+	
+	@classmethod
+	def curtir(cls, publicacao, quem_curtiu_id):
+		cls.id += 1
+		obj = Curtida(cls.id, publicacao, quem_curtiu_id)
+		dados = {"id": cls.id, "publicacao": publicacao, "quem_curtiu_id": quem_curtiu_id}
+		Crud.criar(obj, cls.curtidas, dados, "curtidas.txt")
+		return True
+
+
+	@classmethod
 	def listar_curtidas():
 		pass
