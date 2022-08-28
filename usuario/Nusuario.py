@@ -7,7 +7,7 @@ class NUsuario:
 	usuarios = []
 
 	@classmethod
-	def cadastrar_usuario(cls, nome, senha):
+	def inserir(cls, nome, senha):
 		cls.id += 1 
 		obj = Usuario(cls.id, nome, senha)  # cria objeto 
 		dados = {"id":obj.id,

@@ -3,6 +3,21 @@
         "id": 1,
         "titulo": "qwer",
         "texto": "qwerqwerqw",
-        "categoria": 2
+        "categoria": 2,
+        "autor_id": 1
+    },
+    {
+        "id": 2,
+        "titulo": "asdf",
+        "texto": "asdfasdfasdfas",
+        "categoria": 1,
+        "autor_id": 1
+    },
+    {
+        "id": 3,
+        "titulo": "ari",
+        "texto": "ariarairairair",
+        "categoria": 2,
+        "autor_id": 2
     }
 ]

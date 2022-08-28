@@ -2,7 +2,7 @@
 from usuario.Nusuario import NUsuario
 from categoria.Ncategoria import NCategoria
 from publicacao.Npublicacao import NPublicacao
-
+from curtida.Ncurtida import NCurtida
 class Program:
 	usuario_autenticado = None
 	
@@ -23,6 +23,7 @@ class Program:
 			Program.main_usuario()
 	
 	
+	
 	def menu():
 		print("----- MENU -----")
 		print("  01 - Login")
@@ -31,10 +32,12 @@ class Program:
 		return int(input())
 
 	
+	
 	def atualizar_dados():
 		NUsuario.recarregar_usuarios_do_banco()
 		NCategoria.recarregar_categorias_do_banco()		
 		NPublicacao.recarregar_publicacoes_do_banco()
+	
 	
 	""" USUARIO"""
 	
@@ -54,11 +57,12 @@ class Program:
 		
 		return Program.main_usuario()
 	
+	
 	def cadastrar_usuario():
 		print("-- INSIRA SEUS DADOS PARA CADASTRO --")
 		nome = input("Nome: ")
 		senha = input("Senha: ")
-		NUsuario.cadastrar_usuario(nome, senha)
+		NUsuario.inserir(nome, senha)
 		# return Program.listar_usuarios()
 	
 	# def listar_usuarios():
@@ -69,6 +73,7 @@ class Program:
 
 	
 	
+	
 	def excluir_usuario():
 		usuario = Program.usuario_autenticado		
 		NUsuario.excluir(usuario)
@@ -77,13 +82,12 @@ class Program:
 		# excluir usuario do arquivo
 		return Program.main()
 		
-	
+
 	
 	def logout():
 		Program.usuario_autenticado = None
 		return Program.main()
-		
-
+			
 	
 	def main_usuario():
 		op = 0
@@ -96,11 +100,12 @@ class Program:
 				if op == 4: Program.categoria_excluir()
 				if op == 5: Program.categoria_listar()
 				if op == 6: Program.publicacao_inserir()
-				if op == 7: Program.publicacao_listar()
+				if op == 7: Program.main_publicacoes()
 
 			except Exception as erro:
 						print(erro)
 		pass
+	
 	
 	def menu_usuario():
 		print("----- MENU DO USUARIO -----")
@@ -116,10 +121,14 @@ class Program:
 
 	
 	# """CATEGORIA"""
+	
+	"""CATEGORIA"""
+	
 	def categoria_inserir():
 		nome = input("nome: ")
 		NCategoria.inserir(nome)
 
+	
 	def categoria_listar():
 		print("-- LISTA DE CATEGORIAS --")
 		lista = NCategoria.listar()
@@ -127,6 +136,7 @@ class Program:
 			print(f"{c.id} - {c.nome}")
 		
 
+	
 	def categoria_excluir():
 		Program.categoria_listar()
 		c_id = int(input("insira o id da cateoria que quer excluir: "))
@@ -135,30 +145,99 @@ class Program:
 
 	
 	# """PUBLICACAO"""
+	
+	"""PUBLICACAO"""
+
+	
 	def publicacao_inserir():
 		titulo = input("titulo: ")
 		texto = input("texto: ")
 		categoria = int(input("categoria: "))
-		NPublicacao.inserir(titulo, texto, categoria)
+		NPublicacao.inserir(titulo, texto, categoria, Program.usuario_autenticado.id)
 	
 	# def publicacao_atualizar():
 	# 	pass
 	
-	def publicacao_listar():
-		""" Listar titulo das e exibir menu pra selecionar qual quer ler"""
-		lista = NPublicacao.listar()
-		for p in lista:
-			print(f"{p.id} - {p.titulo}")
+	def listar_publicacoes_dos_outros():
+		lista = NPublicacao.listar_publicacoes_dos_outros(Program.usuario_autenticado.id)
+		for pub in lista:
+			print(f"{pub.id} - {pub.titulo}")
+		Program.publicacao_pesquisar()
 
+	def listar_minhas_publicacoes():
+		lista = NPublicacao.listar_minhas_publicacoes(Program.usuario_autenticado.id)
+		for pub in lista:
+			print(f"{pub.id} - {pub.titulo}")
+		Program.publicacao_pesquisar()
+
+	def publicacao_pesquisar():
+		p = int(input("Insira o ID de qual publicação deseja ler: "))
+		pub = NPublicacao.pesquisar(p)
+		if pub is not None:
+			Program.ler_publicacao(pub)
+		else:
+			print("Publicação não encontrada")
+
+	def ler_publicacao(pub):
+		print(f"titulo: {pub.titulo}")
+		print(f"texto: {pub.texto}")
+		print(f"id: {pub.id}")
+		print(f"autor_id: {pub.autor_id}")	
+		qtd_curtidas = len(Ncurtidas.listar_curtidas_de_uma_publicacao)
+		print(f"Essa publicação tem {qtd_curtidas} curtidas!")
+		# inserir curtidas
+		Program.main_leitura_publicacoes(pub)
+
+	def main_leitura_publicacoes(pub):
+		op = 0
+		while op != 99:
+			try:
+				op = Program.menu_leitura_publicacoes()
+				if op == 1: Program.curtir_publicacao(pub)
+				if op == 2: Program.main_publicacoes()
+					
+			except Exception as erro:
+						print(erro)
+		pass
 	
+	def menu_leitura_publicacoes():
+		print("----- MENU DE PUBLICACOES -----")
+		print("  01 - Curtir")
+		print("  02 - Sair ")		
+		print("Opção: ", end="")
+		return int(input())
+
+	def main_publicacoes():
+		op = 0
+		while op != 99:
+			try:
+				op = Program.menu_publicacoes()
+				if op == 1: Program.listar_minhas_publicacoes()
+				if op == 2: Program.listar_publicacoes_dos_outros()
+				if op == 3: Program.main()
+
+			except Exception as erro:
+						print(erro)
+		pass
+	
+	
+	def menu_publicacoes():
+		print("----- MENU DE PUBLICACOES -----")
+		print("  01 - Minha publicações")
+		print("  02 - Publicações dos outros")
+		print("  03 - Voltar para o menu do usuario")
+		
+		print("Opção: ", end="")
+		return int(input())
+		
 	# def publicacao_excluir():
 	# 	pass
 
-	# def curtir_publicacao():
-	# 	pass
-
-
-
-
+	def curtir_publicacao(pub):
+		verificar = NCurtida.pesquisar(pub)
+		if verificar is None:
+			NCurtida.curtir(pub, Program.usuario_autenticado.id)
+		else:
+			print("Você ja curtiu essa publicação")
 if __name__ == "__main__":
   Program.main()
