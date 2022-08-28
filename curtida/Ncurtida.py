@@ -1,5 +1,7 @@
 from curtida.curtida import Curtida
 from crud import Crud
+from arquivo import Arquivo
+from publicacao.Npublicacao import NPublicacao
 class NCurtida:
 	id = 0
 	curtidas = []
@@ -13,14 +15,36 @@ class NCurtida:
 		return True
 
 	@classmethod
-	def listar_curtidas_de_uma_publicacao(pub):
+	def listar_curtidas_de_uma_publicacao(cls, pub):
 		curtidas = []
 		for curtida in cls.curtidas:
 			if pub.id == curtida.publicacao:
 				curtidas.append(curtida)
 		
 		return curtidas
-
-	@classmethod
-	def pesquisar(pub):
 		
+	
+	@classmethod
+	def pesquisar(cls, obj_id):
+		return Crud.pesquisar(obj_id, cls.curtidas)
+	
+	@classmethod
+	def verificar_curtida(cls, pub, usuario_logado):
+		for curtida in cls.curtidas:
+			if curtida.publicacao == pub.id and curtida.quem_curtiu_id == usuario_logado.id:
+				return False
+		return True
+
+	
+	@classmethod
+	def recarregar_curtidas_do_banco(cls):
+		id = 0
+		curtidas_json = Arquivo.ler("curtidas.txt")
+		for curtida in curtidas_json:
+			curtida_existe = cls.pesquisar(curtida["id"])
+			if curtida_existe is None:
+				nova_curtida = Curtida(curtida["id"], curtida["publicacao"], curtida["quem_curtiu_id"])
+				cls.curtidas.append(nova_curtida)
+			if curtida["id"] > id:
+				id = curtida["id"]
+		cls.id = id
