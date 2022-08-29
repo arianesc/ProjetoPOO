@@ -1,32 +1,37 @@
 [
-  {
-    "id": 1,
-    "nome": "admin",
-    "senha": "admin"
-  },
-  {
-    "id": 2,
-    "nome": "ari",
-    "senha": "123"
-  },
-  {
-    "id": 3,
-    "nome": "teste",
-    "senha": "123"
-  },
-  {
-    "id": 5,
-    "nome": "admin2",
-    "senha": "123"
-  },
-  {
-    "id": 6,
-    "nome": "teste2",
-    "senha": "123"
-  },
-  {
-    "id": 7,
-    "nome": "admin1",
-    "senha": "123"
-  }
+    {
+        "id": 1,
+        "nome": "admin",
+        "senha": "admin"
+    },
+    {
+        "id": 2,
+        "nome": "ari",
+        "senha": "123"
+    },
+    {
+        "id": 3,
+        "nome": "teste",
+        "senha": "123"
+    },
+    {
+        "id": 5,
+        "nome": "admin2",
+        "senha": "123"
+    },
+    {
+        "id": 6,
+        "nome": "teste2",
+        "senha": "123"
+    },
+    {
+        "id": 7,
+        "nome": "admin1",
+        "senha": "123"
+    },
+    {
+        "id": 8,
+        "nome": "arianesc",
+        "senha": "arianesc"
+    }
 ]

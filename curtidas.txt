@@ -8,5 +8,10 @@
         "id": 1,
         "publicacao": 3,
         "quem_curtiu_id": 1
+    },
+    {
+        "id": 2,
+        "publicacao": 1,
+        "quem_curtiu_id": 8
     }
 ]

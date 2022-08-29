@@ -19,5 +19,12 @@
         "texto": "ariarairairair",
         "categoria": 2,
         "autor_id": 2
+    },
+    {
+        "id": 4,
+        "titulo": "teste",
+        "texto": "teste",
+        "categoria": 1,
+        "autor_id": 1
     }
 ]

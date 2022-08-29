@@ -1,14 +1,13 @@
-# from usuario.usuario import Usuario
 from usuario.Nusuario import NUsuario
 from categoria.Ncategoria import NCategoria
 from publicacao.Npublicacao import NPublicacao
 from curtida.Ncurtida import NCurtida
+import os
 
 """
 PENDENCIA:
 - Excluir publicação
 - Editar publicação
-- Excluir curtida ?
 - Listar publicações que eu curti
 - Visão do visitante
 """
@@ -17,9 +16,10 @@ class Program:
 	usuario_autenticado = None
 	
 	def main():
+		Program.clear()
 		Program.atualizar_dados()
 		if Program.usuario_autenticado is None:
-			print("--- Bem-vindx! ---")
+			print("--- Bem-vindo(a)! ---")
 			print()
 			op = 0
 			while op != 99:
@@ -31,8 +31,6 @@ class Program:
 							print(erro)
 		else:
 			Program.main_usuario()
-	
-	
 	
 	
 	def menu():
@@ -54,9 +52,11 @@ class Program:
 	""" USUARIO"""
 	
 	def login():
-		print("Nome:")
+		Program.clear()
+		print("-----LOGIN-----:")
+		print("Insira seu nome:")
 		nome = input()
-		print("Senha:")
+		print("Insira sua senha:")
 		senha = input()
 		aut = NUsuario.autenticar(nome, senha)
 		
@@ -64,7 +64,7 @@ class Program:
 			print(f"{nome} não cadastrado")
 			return
 		
-		print(f"Bem vindx {nome}")
+		print(f"Bem vindo(a) {nome}!")
 		Program.usuario_autenticado = aut
 		
 		return Program.main_usuario()
@@ -72,9 +72,10 @@ class Program:
 	
 	
 	def cadastrar_usuario():
-		print("-- INSIRA SEUS DADOS PARA CADASTRO --")
-		nome = input("Nome: ")
-		senha = input("Senha: ")
+		Program.clear()
+		print("---- FAÇA SEU CADASTRO ----")
+		nome = input("Insira seu nome: ")
+		senha = input("Insira sua senha: ")
 		NUsuario.inserir(nome, senha)
 		# return Program.listar_usuarios()
 	
@@ -89,23 +90,22 @@ class Program:
 	
 	
 	def excluir_usuario():
+		Program.clear()
 		usuario = Program.usuario_autenticado		
 		NUsuario.excluir(usuario)
-		print(f"{usuario.nome} foi deletado")
+		print(f"{usuario.nome} foi deletado!")
 		Program.usuario_autenticado = None
 		# excluir usuario do arquivo
 		return Program.main()
 		
-
-	
-	
 	def logout():
+		Program.clear()
+		print(f"Até mais {Program.usuario_autenticado.nome}")
 		Program.usuario_autenticado = None
 		return Program.main()
 			
-	
-	
 	def main_usuario():
+		Program.clear()
 		op = 0
 		while op != 99:
 			try:
@@ -134,7 +134,7 @@ class Program:
 		print("  06 - Adicionar publicacao")
 		print("  07 - Listar publicacões")
 		print("Opção: ", end="")
-		return int(input())
+		return int(input("Insira o número que deseja: "))
 
 	
 	# """CATEGORIA"""
@@ -142,23 +142,25 @@ class Program:
 	"""CATEGORIA"""
 	
 	def categoria_inserir():
-		nome = input("nome: ")
+		Program.clear()
+		print("ADICIONAR CATEGORIA:")
+		nome = input("Insira o nome da categoria: ")
 		NCategoria.inserir(nome)
 
 	
-	
 	def categoria_listar():
-		print("-- LISTA DE CATEGORIAS --")
+		Program.clear()
+		print("LISTA DE CATEGORIAS:")
 		lista = NCategoria.listar()
+	
 		for c in lista:
 			print(f"{c.id} - {c.nome}")
 		
 
-	
-	
 	def categoria_excluir():
+		Program.clear()
 		Program.categoria_listar()
-		c_id = int(input("insira o id da cateoria que quer excluir: "))
+		c_id = int(input("insira o id da categoria que quer excluir: "))
 		obj = NCategoria.pesquisar(c_id)
 		NCategoria.excluir(obj)
 
@@ -167,11 +169,13 @@ class Program:
 	
 	"""PUBLICACAO"""
 
-	
 	def publicacao_inserir():
-		titulo = input("titulo: ")
-		texto = input("texto: ")
-		categoria = int(input("categoria: "))
+		Program.clear()
+		print("ADICIONAR PUBLICAÇÃO: ")
+		titulo = input("Insira o titulo: ")
+		texto = input("Insira o texto: ")
+		Program.categoria_listar()
+		categoria = int(input("Insira o id da categoria: "))
 		NPublicacao.inserir(titulo, texto, categoria, Program.usuario_autenticado.id)
 	
 	# def publicacao_atualizar():
@@ -179,6 +183,7 @@ class Program:
 	
 	
 	def listar_publicacoes_dos_outros():
+		Program.clear()
 		lista = NPublicacao.listar_publicacoes_dos_outros(Program.usuario_autenticado.id)
 		for pub in lista:
 			print(f"{pub.id} - {pub.titulo}")
@@ -186,7 +191,11 @@ class Program:
 
 	
 	def listar_minhas_publicacoes():
+		Program.clear()
 		lista = NPublicacao.listar_minhas_publicacoes(Program.usuario_autenticado.id)
+		if len(lista) == 0:
+			print("Você não tem nenhuma publicação ainda!")
+			return
 		for pub in lista:
 			print(f"{pub.id} - {pub.titulo}")
 		Program.publicacao_pesquisar()
@@ -200,13 +209,15 @@ class Program:
 		else:
 			print("Publicação não encontrada")
 
-	
-	
+
 	def ler_publicacao(pub):
+		Program.clear()
 		print(f"titulo: {pub.titulo}")
 		print(f"texto: {pub.texto}")
 		print(f"id: {pub.id}")
-		print(f"autor_id: {pub.autor_id}")	
+		print(f"autor_id: {pub.autor_id}")
+		categoria = NCategoria.pesquisar(pub.categoria)
+		print(f"categoria: {categoria}")
 		curtidas = NCurtida.listar_curtidas_de_uma_publicacao(pub)
 		qtd_curtidas = len(curtidas)
 		print(f"Essa publicação tem {qtd_curtidas} curtidas!")
@@ -235,6 +246,7 @@ class Program:
 
 	
 	def main_publicacoes():
+		Program.clear()
 		op = 0
 		while op != 99:
 			try:
@@ -251,7 +263,7 @@ class Program:
 	
 	def menu_publicacoes():
 		print("----- MENU DE PUBLICACOES -----")
-		print("  01 - Minha publicações")
+		print("  01 - Minhas publicações")
 		print("  02 - Publicações dos outros")
 		print("  03 - Voltar para o menu do usuario")
 		
@@ -270,7 +282,9 @@ class Program:
 			print("Você não pode curtir sua propria publicação")
 		else:
 			NCurtida.curtir(pub, Program.usuario_autenticado.id)
-			
+
+	def clear():
+		os.system('cls' if os.name == 'nt' else 'clear')
 
 if __name__ == "__main__":
   Program.main()
