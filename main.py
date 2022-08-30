@@ -6,9 +6,9 @@ import os
 
 """
 PENDENCIA:
+- Colocar o nome BLOG em todas as telas.
 - Excluir publicação
 - Editar publicação
-- Listar publicações que eu curti
 - Visão do visitante
 """
 
@@ -200,7 +200,22 @@ class Program:
 			print(f"{pub.id} - {pub.titulo}")
 		Program.publicacao_pesquisar()
 
-	
+	def listar_publicacoes_que_eu_curti():
+		Program.clear()
+		publicacoes = []
+		lista = NCurtida.curtidas_de_um_usuario(Program.usuario_autenticado)
+		
+		if len(lista) == 0:
+			print("Você não curtiu nenhuma publicação ainda.")
+			return
+			
+		for curtida in lista:
+			publicacoes.append(NPublicacao.pesquisar(curtida.publicacao))
+			
+		for pub in publicacoes:
+			print(f"{pub.id} - {pub.titulo}")
+		Program.publicacao_pesquisar()
+		
 	def publicacao_pesquisar():
 		p = int(input("Insira o ID de qual publicação deseja ler: "))
 		pub = NPublicacao.pesquisar(p)
@@ -253,7 +268,8 @@ class Program:
 				op = Program.menu_publicacoes()
 				if op == 1: Program.listar_minhas_publicacoes()
 				if op == 2: Program.listar_publicacoes_dos_outros()
-				if op == 3: Program.main()
+				if op == 3: Program.listar_publicacoes_que_eu_curti()
+				if op == 4: Program.main()
 
 			except Exception as erro:
 						print(erro)
@@ -265,7 +281,8 @@ class Program:
 		print("----- MENU DE PUBLICACOES -----")
 		print("  01 - Minhas publicações")
 		print("  02 - Publicações dos outros")
-		print("  03 - Voltar para o menu do usuario")
+		print("  03 - Publicações que eu curti")
+		print("  04 - Voltar para o menu do usuario")
 		
 		print("Opção: ", end="")
 		return int(input())

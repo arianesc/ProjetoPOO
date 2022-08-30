@@ -23,7 +23,15 @@ class NCurtida:
 		
 		return curtidas
 		
-	
+	@classmethod
+	def curtidas_de_um_usuario(cls, usuario):
+		curtidas = []
+		for curtida in cls.curtidas:
+			if curtida.quem_curtiu_id == usuario.id:
+				curtidas.append(curtida)
+		return curtidas
+			
+		
 	@classmethod
 	def pesquisar(cls, obj_id):
 		return Crud.pesquisar(obj_id, cls.curtidas)
