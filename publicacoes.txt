@@ -1,44 +1,30 @@
 [
     {
         "id": 1,
-        "titulo": "qwer",
-        "texto": "qwerqwerqw",
-        "categoria": 2,
+        "titulo": "Ausencia da Maldade - Socrates",
+        "texto": "A um homem bom n\u00e3o \u00e9 poss\u00edvel que ocorra nenhum mal, nem em vida nem em morte.",
+        "categoria": 1,
         "autor_id": 1
     },
     {
         "id": 2,
-        "titulo": "asdf",
-        "texto": "asdfasdfasdfas",
+        "titulo": "Vencedor",
+        "texto": "Querer vencer significa j\u00e1 ter percorrido metade do caminho.",
         "categoria": 1,
         "autor_id": 1
     },
     {
         "id": 3,
-        "titulo": "ari",
-        "texto": "ariarairairair",
+        "titulo": "Como ferver agua",
+        "texto": "Encha uma panela e coloque-a no fog\u00e3o em fogo alto. Aguarde at\u00e9 que a superf\u00edcie comece a produzir vapor e borbulhar constantemente.",
         "categoria": 2,
-        "autor_id": 2
+        "autor_id": 1
     },
     {
         "id": 4,
-        "titulo": "teste",
-        "texto": "teste",
-        "categoria": 1,
-        "autor_id": 1
-    },
-    {
-        "id": 5,
-        "titulo": "testando",
-        "texto": "testestestes",
+        "titulo": "Como congelar agua",
+        "texto": "Coloque a agua em um recipiente, em seguida coloque o recipiete no congelador e aguarde at\u00e9 que a agua se solidifique.",
         "categoria": 2,
         "autor_id": 1
-    },
-    {
-        "id": 6,
-        "titulo": "ari",
-        "texto": "ari",
-        "categoria": 2,
-        "autor_id": 9
     }
 ]

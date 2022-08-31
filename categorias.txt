@@ -1,18 +1,10 @@
 [
     {
         "id": 1,
-        "nome": "teste"
+        "nome": "Frases Motivacionais"
     },
     {
         "id": 1,
-        "nome": "ariane"
-    },
-    {
-        "id": 1,
-        "nome": "cate"
-    },
-    {
-        "id": 1,
-        "nome": "ari"
+        "nome": "Receitas"
     }
 ]
