@@ -50,9 +50,3 @@ class NUsuario:
 			if usuario["id"] > id:
 				id = usuario["id"]
 		cls.id = id
-
-
-	
-	@classmethod
-	def publicacoes_curtidas(cls, usuario):
-		pass

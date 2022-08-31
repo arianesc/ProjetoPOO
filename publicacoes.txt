@@ -26,5 +26,19 @@
         "texto": "teste",
         "categoria": 1,
         "autor_id": 1
+    },
+    {
+        "id": 5,
+        "titulo": "testando",
+        "texto": "testestestes",
+        "categoria": 2,
+        "autor_id": 1
+    },
+    {
+        "id": 6,
+        "titulo": "ari",
+        "texto": "ari",
+        "categoria": 2,
+        "autor_id": 9
     }
 ]

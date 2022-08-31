@@ -6,7 +6,6 @@ import os
 
 """
 PENDENCIA:
-- Colocar o nome BLOG em todas as telas.
 - Excluir publicação
 - Editar publicação
 - Visão do visitante
@@ -20,7 +19,7 @@ class Program:
 		Program.atualizar_dados()
 		if Program.usuario_autenticado is None:
 			print("--- Bem-vindo(a)! ---")
-			print()
+			
 			op = 0
 			while op != 99:
 				try:
@@ -34,9 +33,12 @@ class Program:
 	
 	
 	def menu():
+		print("-------BLOG-------")
+
 		print("----- MENU -----")
 		print("  01 - Login")
 		print("  02 - Cadastro")
+		print("  99 - Encerrar")
 		print("Opção: ", end="")
 		return int(input())
 
@@ -52,7 +54,9 @@ class Program:
 	""" USUARIO"""
 	
 	def login():
+		print("")
 		Program.clear()
+		print("-------BLOG-------")
 		print("-----LOGIN-----:")
 		print("Insira seu nome:")
 		nome = input()
@@ -66,13 +70,11 @@ class Program:
 		
 		print(f"Bem vindo(a) {nome}!")
 		Program.usuario_autenticado = aut
-		
 		return Program.main_usuario()
-	
-	
 	
 	def cadastrar_usuario():
 		Program.clear()
+		print("-------BLOG-------")
 		print("---- FAÇA SEU CADASTRO ----")
 		nome = input("Insira seu nome: ")
 		senha = input("Insira sua senha: ")
@@ -86,9 +88,7 @@ class Program:
 	# 		print(f"{usuario} - {usuario['nome']}")
 
 	
-	
-	
-	
+
 	def excluir_usuario():
 		Program.clear()
 		usuario = Program.usuario_autenticado		
@@ -125,6 +125,7 @@ class Program:
 	
 	
 	def menu_usuario():
+		print("-------BLOG-------")
 		print("----- MENU DO USUARIO -----")
 		print("  01 - excluir conta")
 		print("  02 - logout")
@@ -143,6 +144,7 @@ class Program:
 	
 	def categoria_inserir():
 		Program.clear()
+		print("-------BLOG-------")
 		print("ADICIONAR CATEGORIA:")
 		nome = input("Insira o nome da categoria: ")
 		NCategoria.inserir(nome)
@@ -150,11 +152,11 @@ class Program:
 	
 	def categoria_listar():
 		Program.clear()
+		print("-------BLOG-------")
 		print("LISTA DE CATEGORIAS:")
 		lista = NCategoria.listar()
-	
-		for c in lista:
-			print(f"{c.id} - {c.nome}")
+		[print(f"{c.id} - {c.nome}") for c in lista]
+			
 		
 
 	def categoria_excluir():
@@ -171,6 +173,7 @@ class Program:
 
 	def publicacao_inserir():
 		Program.clear()
+		print("-------BLOG-------")
 		print("ADICIONAR PUBLICAÇÃO: ")
 		titulo = input("Insira o titulo: ")
 		texto = input("Insira o texto: ")
@@ -178,15 +181,12 @@ class Program:
 		categoria = int(input("Insira o id da categoria: "))
 		NPublicacao.inserir(titulo, texto, categoria, Program.usuario_autenticado.id)
 	
-	# def publicacao_atualizar():
-	# 	pass
-	
 	
 	def listar_publicacoes_dos_outros():
 		Program.clear()
 		lista = NPublicacao.listar_publicacoes_dos_outros(Program.usuario_autenticado.id)
-		for pub in lista:
-			print(f"{pub.id} - {pub.titulo}")
+		[print(f"{pub.id} - {pub.titulo}") for pub in lista]
+			
 		Program.publicacao_pesquisar()
 
 	
@@ -196,8 +196,8 @@ class Program:
 		if len(lista) == 0:
 			print("Você não tem nenhuma publicação ainda!")
 			return
-		for pub in lista:
-			print(f"{pub.id} - {pub.titulo}")
+		[print(f"{pub.id} - {pub.titulo}") for pub in lista]
+			
 		Program.publicacao_pesquisar()
 
 	def listar_publicacoes_que_eu_curti():
@@ -209,11 +209,10 @@ class Program:
 			print("Você não curtiu nenhuma publicação ainda.")
 			return
 			
-		for curtida in lista:
-			publicacoes.append(NPublicacao.pesquisar(curtida.publicacao))
+		[publicacoes.append(NPublicacao.pesquisar(curtida.publicacao)) for curtida in lista]
 			
-		for pub in publicacoes:
-			print(f"{pub.id} - {pub.titulo}")
+		[print(f"{pub.id} - {pub.titulo}") for pub in publicacoes]
+		
 		Program.publicacao_pesquisar()
 		
 	def publicacao_pesquisar():
@@ -227,6 +226,7 @@ class Program:
 
 	def ler_publicacao(pub):
 		Program.clear()
+		print("-------BLOG-------")
 		print(f"titulo: {pub.titulo}")
 		print(f"texto: {pub.texto}")
 		print(f"id: {pub.id}")
@@ -253,6 +253,7 @@ class Program:
 	
 	
 	def menu_leitura_publicacoes():
+		print("-------BLOG-------")
 		print("----- MENU DE PUBLICACOES -----")
 		print("  01 - Curtir")
 		print("  02 - Sair ")		
@@ -278,18 +279,15 @@ class Program:
 	
 	
 	def menu_publicacoes():
+		print("-------BLOG-------")
 		print("----- MENU DE PUBLICACOES -----")
 		print("  01 - Minhas publicações")
 		print("  02 - Publicações dos outros")
 		print("  03 - Publicações que eu curti")
 		print("  04 - Voltar para o menu do usuario")
-		
 		print("Opção: ", end="")
 		return int(input())
 		
-	# def publicacao_excluir():
-	# 	pass
-
 	
 	def curtir_publicacao(pub):
 		verificar = NCurtida.verificar_curtida(pub, Program.usuario_autenticado)

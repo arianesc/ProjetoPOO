@@ -8,9 +8,6 @@ class Crud:
 		Arquivo.adicionar_dados(nome_do_arquivo, dados)
 		return True
 	
-	@classmethod
-	def atualizar(cls):
-		pass
 	
 	@classmethod
 	def deletar(cls, obj, lista_do_objeto, nome_do_arquivo):

@@ -13,5 +13,15 @@
         "id": 2,
         "publicacao": 1,
         "quem_curtiu_id": 8
+    },
+    {
+        "id": 3,
+        "publicacao": 1,
+        "quem_curtiu_id": 9
+    },
+    {
+        "id": 4,
+        "publicacao": 3,
+        "quem_curtiu_id": 9
     }
 ]
