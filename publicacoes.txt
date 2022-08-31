@@ -17,14 +17,14 @@
         "id": 3,
         "titulo": "Como ferver agua",
         "texto": "Encha uma panela e coloque-a no fog\u00e3o em fogo alto. Aguarde at\u00e9 que a superf\u00edcie comece a produzir vapor e borbulhar constantemente.",
-        "categoria": 2,
+        "categoria": 1,
         "autor_id": 1
     },
     {
         "id": 4,
         "titulo": "Como congelar agua",
         "texto": "Coloque a agua em um recipiente, em seguida coloque o recipiete no congelador e aguarde at\u00e9 que a agua se solidifique.",
-        "categoria": 2,
+        "categoria": 1,
         "autor_id": 1
     }
 ]

@@ -4,12 +4,6 @@ from publicacao.Npublicacao import NPublicacao
 from curtida.Ncurtida import NCurtida
 import os
 
-"""
-PENDENCIA:
-- Excluir publicação
-- Editar publicação
-- Visão do visitante
-"""
 
 class Program:
 	usuario_autenticado = None

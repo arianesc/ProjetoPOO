@@ -3,5 +3,10 @@
         "id": 1,
         "nome": "italo",
         "senha": "123"
+    },
+    {
+        "id": 2,
+        "nome": "ari",
+        "senha": "ari"
     }
 ]

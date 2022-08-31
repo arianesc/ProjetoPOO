@@ -1,3 +1,7 @@
 [
-
+    {
+        "id": 1,
+        "publicacao": 1,
+        "quem_curtiu_id": 2
+    }
 ]
