@@ -13,7 +13,7 @@ class Program:
 		Program.atualizar_dados()
 		if Program.usuario_autenticado is None:
 			print("--- Bem-vindo(a)! ---")
-			
+			#print(" ")
 			op = 0
 			while op != 99:
 				try:
